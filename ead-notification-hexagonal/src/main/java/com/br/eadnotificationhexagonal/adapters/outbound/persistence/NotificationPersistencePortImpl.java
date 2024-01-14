@@ -40,6 +40,10 @@ public class NotificationPersistencePortImpl implements NotificationPersistenceP
 
     @Override
     public Optional<NotificationDomain> findByNotificationIdAndUserId(UUID notificationId, UUID userId) {
+        Optional<NotificationEntity> notificationEntity = notificationJpaRepoository.findByNotificationIdAndUserId(notificationId, userId);
+        if (notificationEntity.isPresent()){
+            return Optional.of(modelMapper.map(notificationEntity.get(), NotificationDomain.class));
+        }
         return Optional.empty();
     }
 }
