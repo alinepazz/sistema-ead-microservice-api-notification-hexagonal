@@ -6,10 +6,13 @@ import com.br.eadnotificationhexagonal.core.domain.PageInfo;
 import com.br.eadnotificationhexagonal.core.domain.enums.NotificationSatus;
 import com.br.eadnotificationhexagonal.core.ports.NotificationPersistencePort;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Component
 public class NotificationPersistencePortImpl implements NotificationPersistencePort {
@@ -30,7 +33,9 @@ public class NotificationPersistencePortImpl implements NotificationPersistenceP
 
     @Override
     public List<NotificationDomain> findAllByUserIdAndNotificationStatus(UUID userId, NotificationSatus notificationSatus, PageInfo pageInfo) {
-        return null;
+        Pageable pageable = PageRequest.of(pageInfo.getPageNumber(), pageInfo.getPageSize());
+        return notificationJpaRepoository.findAllByUserIdAndNotificationStatus(userId, notificationSatus, pageable).stream().map(entity -> modelMapper.map(entity, NotificationDomain.class))
+                .collect(Collectors.toList());
     }
 
     @Override
