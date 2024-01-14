@@ -2,7 +2,7 @@ package com.br.eadnotificationhexagonal.adapters.inbound.consumers;
 
 import com.br.eadnotificationhexagonal.adapters.dtos.NotificationCommandDto;
 import com.br.eadnotificationhexagonal.core.domain.NotificationDomain;
-import com.br.eadnotificationhexagonal.core.domain.enums.NotificationSatus;
+import com.br.eadnotificationhexagonal.core.domain.enums.NotificationStatus;
 import com.br.eadnotificationhexagonal.core.ports.NotificationServicePort;
 import org.springframework.amqp.core.ExchangeTypes;
 import org.springframework.amqp.rabbit.annotation.Exchange;
@@ -13,13 +13,16 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
 @Component
 public class NotificationConsumer {
 
-    final NotificationServicePort notificationService;
+    final NotificationServicePort notificationServicePort;
 
-    public NotificationConsumer(NotificationServicePort notificationService) {
-        this.notificationService = notificationService;
+    public NotificationConsumer(NotificationServicePort notificationServicePort) {
+        this.notificationServicePort = notificationServicePort;
     }
 
     @RabbitListener(bindings = @QueueBinding(
@@ -27,12 +30,12 @@ public class NotificationConsumer {
             exchange = @Exchange(value = "${ead.broker.exchange.notificationCommandExchange}", type = ExchangeTypes.TOPIC, ignoreDeclarationExceptions = "true"),
             key = "${ead.broker.key.notificationCommandKey}")
     )
-    public void listenUserEvent(@Payload NotificationCommandDto notificationCommandDto){
+    public void listen(@Payload NotificationCommandDto notificationCommandDto) {
         var notificationDomain = new NotificationDomain();
         BeanUtils.copyProperties(notificationCommandDto, notificationDomain);
-        notificationDomain.setNotificationSatus(NotificationSatus.CREATED);
-        notificationService.saveNotification(notificationDomain);
-      }
-
+        notificationDomain.setCreationDate(LocalDateTime.now(ZoneId.of("UTC")));
+        notificationDomain.setNotificationStatus(NotificationStatus.CREATED);
+        notificationServicePort.saveNotification(notificationDomain);
     }
 
+}

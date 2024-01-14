@@ -1,18 +1,18 @@
 package com.br.eadnotificationhexagonal.adapters.dtos;
 
-import com.br.eadnotificationhexagonal.core.domain.enums.NotificationSatus;
+import com.br.eadnotificationhexagonal.core.domain.enums.NotificationStatus;
 import javax.validation.constraints.NotNull;
 
 public class NotificationDto {
 
     @NotNull
-    private NotificationSatus notificationSatus;
+    private NotificationStatus notificationStatus;
 
-    public NotificationSatus getNotificationSatus() {
-        return notificationSatus;
+    public NotificationStatus getNotificationStatus() {
+        return notificationStatus;
     }
 
-    public void setNotificationSatus(NotificationSatus notificationSatus) {
-        this.notificationSatus = notificationSatus;
+    public void setNotificationStatus(NotificationStatus notificationStatus) {
+        this.notificationStatus = notificationStatus;
     }
 }

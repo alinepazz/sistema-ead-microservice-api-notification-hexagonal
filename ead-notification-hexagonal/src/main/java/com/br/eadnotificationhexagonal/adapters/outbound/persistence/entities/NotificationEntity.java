@@ -1,6 +1,6 @@
 package com.br.eadnotificationhexagonal.adapters.outbound.persistence.entities;
 
-import com.br.eadnotificationhexagonal.core.domain.enums.NotificationSatus;
+import com.br.eadnotificationhexagonal.core.domain.enums.NotificationStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.hibernate.annotations.CreationTimestamp;
@@ -30,7 +30,7 @@ public class NotificationEntity implements Serializable {
     private LocalDateTime creationDate;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private NotificationSatus notificationSatus;
+    private NotificationStatus notificationStatus;
 
     public UUID getNotificationId() {
         return notificationId;
@@ -72,11 +72,11 @@ public class NotificationEntity implements Serializable {
         this.creationDate = creationDate;
     }
 
-    public NotificationSatus getNotificationSatus() {
-        return notificationSatus;
+    public NotificationStatus getNotificationStatus() {
+        return notificationStatus;
     }
 
-    public void setNotificationSatus(NotificationSatus notificationSatus) {
-        this.notificationSatus = notificationSatus;
+    public void setNotificationStatus(NotificationStatus notificationStatus) {
+        this.notificationStatus = notificationStatus;
     }
 }

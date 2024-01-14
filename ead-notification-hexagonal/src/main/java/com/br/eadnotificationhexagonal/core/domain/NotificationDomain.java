@@ -1,7 +1,6 @@
 package com.br.eadnotificationhexagonal.core.domain;
 
-
-import com.br.eadnotificationhexagonal.core.domain.enums.NotificationSatus;
+import com.br.eadnotificationhexagonal.core.domain.enums.NotificationStatus;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -12,7 +11,7 @@ public class NotificationDomain {
     private String title;
     private String message;
     private LocalDateTime creationDate;
-    private NotificationSatus notificationSatus;
+    private NotificationStatus notificationStatus;
 
     public UUID getNotificationId() {
         return notificationId;
@@ -54,11 +53,11 @@ public class NotificationDomain {
         this.creationDate = creationDate;
     }
 
-    public NotificationSatus getNotificationSatus() {
-        return notificationSatus;
+    public NotificationStatus getNotificationStatus() {
+        return notificationStatus;
     }
 
-    public void setNotificationSatus(NotificationSatus notificationSatus) {
-        this.notificationSatus = notificationSatus;
+    public void setNotificationStatus(NotificationStatus notificationStatus) {
+        this.notificationStatus = notificationStatus;
     }
 }

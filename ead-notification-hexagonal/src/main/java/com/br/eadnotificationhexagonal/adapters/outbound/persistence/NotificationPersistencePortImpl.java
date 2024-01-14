@@ -3,7 +3,7 @@ package com.br.eadnotificationhexagonal.adapters.outbound.persistence;
 import com.br.eadnotificationhexagonal.adapters.outbound.persistence.entities.NotificationEntity;
 import com.br.eadnotificationhexagonal.core.domain.NotificationDomain;
 import com.br.eadnotificationhexagonal.core.domain.PageInfo;
-import com.br.eadnotificationhexagonal.core.domain.enums.NotificationSatus;
+import com.br.eadnotificationhexagonal.core.domain.enums.NotificationStatus;
 import com.br.eadnotificationhexagonal.core.ports.NotificationPersistencePort;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.PageRequest;
@@ -25,6 +25,7 @@ public class NotificationPersistencePortImpl implements NotificationPersistenceP
         this.modelMapper = modelMapper;
     }
 
+
     @Override
     public NotificationDomain save(NotificationDomain notificationDomain) {
         NotificationEntity entity = notificationJpaRepoository.save(modelMapper.map(notificationDomain, NotificationEntity.class));
@@ -32,9 +33,9 @@ public class NotificationPersistencePortImpl implements NotificationPersistenceP
     }
 
     @Override
-    public List<NotificationDomain> findAllByUserIdAndNotificationStatus(UUID userId, NotificationSatus notificationSatus, PageInfo pageInfo) {
+    public List<NotificationDomain> findAllByUserIdAndNotificationStatus(UUID userId, NotificationStatus notificationStatus, PageInfo pageInfo) {
         Pageable pageable = PageRequest.of(pageInfo.getPageNumber(), pageInfo.getPageSize());
-        return notificationJpaRepoository.findAllByUserIdAndNotificationStatus(userId, notificationSatus, pageable).stream().map(entity -> modelMapper.map(entity, NotificationDomain.class))
+        return notificationJpaRepoository.findAllByUserIdAndNotificationStatus(userId, notificationStatus, pageable).stream().map(entity -> modelMapper.map(entity, NotificationDomain.class))
                 .collect(Collectors.toList());
     }
 

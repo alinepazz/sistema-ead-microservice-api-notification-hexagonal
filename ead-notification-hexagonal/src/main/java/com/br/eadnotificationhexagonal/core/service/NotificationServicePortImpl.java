@@ -2,7 +2,7 @@ package com.br.eadnotificationhexagonal.core.service;
 
 import com.br.eadnotificationhexagonal.core.domain.NotificationDomain;
 import com.br.eadnotificationhexagonal.core.domain.PageInfo;
-import com.br.eadnotificationhexagonal.core.domain.enums.NotificationSatus;
+import com.br.eadnotificationhexagonal.core.domain.enums.NotificationStatus;
 import com.br.eadnotificationhexagonal.core.ports.NotificationPersistencePort;
 import com.br.eadnotificationhexagonal.core.ports.NotificationServicePort;
 import java.util.List;
@@ -25,7 +25,7 @@ public class NotificationServicePortImpl implements NotificationServicePort {
 
     @Override
     public List<NotificationDomain> findAllNotificationsByUser(UUID userId, PageInfo pageInfo) {
-        return notificationPersistencePort.findAllByUserIdAndNotificationStatus(userId, NotificationSatus.CREATED, pageInfo);
+        return notificationPersistencePort.findAllByUserIdAndNotificationStatus(userId, NotificationStatus.CREATED, pageInfo);
     }
 
     @Override
