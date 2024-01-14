@@ -2,7 +2,6 @@ package com.br.eadnotificationhexagonal.core.domain;
 
 
 import com.br.eadnotificationhexagonal.core.domain.enums.NotificationSatus;
-
 import java.time.LocalDateTime;
 import java.util.UUID;
 
